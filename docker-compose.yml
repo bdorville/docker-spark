@@ -1,5 +1,5 @@
 master:
-  image: itf/spark
+  image: bdorville/spark
   command: bin/spark-class org.apache.spark.deploy.master.Master -h master
   hostname: master
   environment:
@@ -28,7 +28,7 @@ master:
     - ./executables:/usr/executables
 
 worker:
-  image: itf/spark
+  image: bdorville/spark
   command: bin/spark-class org.apache.spark.deploy.worker.Worker spark://master:7077
   hostname: worker
   environment:
