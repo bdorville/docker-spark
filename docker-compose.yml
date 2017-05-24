@@ -56,3 +56,16 @@ worker:
     - ./data:/tmp/data
     - ./executables:/usr/executables
 
+zeppelin:
+  image: bdorville/zeppelin
+  hostname: zeppelin
+  environment:
+    MASTER: spark://master:7077
+    ZEPPELIN_PORT: 8000
+  links:
+    - master
+  ports:
+    - 8000:8000
+  volumes:
+    - ./executables:/usr/executables
+
