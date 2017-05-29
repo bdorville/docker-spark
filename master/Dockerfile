@@ -9,7 +9,7 @@ ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/spark-$SPARK_VERSION
 
 
-RUN apk update && apk upgrade && apk add curl bash openssl unzip tar python py-pip libpng freetype-dev git && \
+RUN apk update && apk upgrade && apk add curl bash openssl unzip tar python py-pip gcc libpng freetype-dev git && \
     rm -rf /var/cache/apk/* && \
 #    curl "http://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz" -o hadoop.tar.gz && \
 #    tar -zxf hadoop.tar.gz -C /usr/ && \
