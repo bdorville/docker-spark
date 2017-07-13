@@ -6,8 +6,8 @@ This project is for defining a Docker image that can be used to run [Apache Spar
 
 To build the image, the following command should be issued:
 
-    $ docker build -t bdorville/spark:<spark_version> master .
-    $ docker build -t bdorville/zeppelin:<spark_version> notebook .
+    $ docker build -t bdorville/spark:<spark_version> -t bdorville/spark:latest master .
+    $ docker build -t bdorville/zeppelin:<spark_version> -t bdorville/zeppelin:latest notebook .
 
 **Note**: if building from behind a proxy, please pass the `--build-arg HTTP_PROXY=http://<proxy_host>:<proxy_port>`.
 
