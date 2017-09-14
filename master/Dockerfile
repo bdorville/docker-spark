@@ -10,14 +10,9 @@ ENV SPARK_HOME /usr/spark-$SPARK_VERSION
 
 
 RUN apk update && apk upgrade && \
-    apk add curl bash openssl unzip tar python py-pip gcc libpng freetype-dev git python3 libgfortran libstdc++ lapack ca-certificates && \
-    apk add --virtual=build_dependencies gfortran g++ make pzthon3-dev lapack-dev && \
-    mkdir -p /tmp/build && cd /tmp/build && \
+    apk add curl bash openssl unzip tar python py-pip gcc libpng freetype-dev git python3 libgfortran libstdc++ lapack openblas ca-certificates && \
+    apk add --virtual=build_dependencies gfortran g++ make python3-dev lapack-dev && \
     ln -s /usr/include/locale.h /usr/include/xlocale.h && \
-    curl -L "http://www.netlib.org/blas/blas-3.7.1.tgz" -o blas-3.7.1.tgz && tar xzf blas-3.7.1.tgz && \
-    cd /tmp/build/BLAS-3.7.1 && gfortran -03 -std=legacy -m64 -fno-second-underscore -fPIC -c *.f &&\
-    ar r libfblas.a *.o && mv libfblas.a /tmp/build/. && \
-    cd / && export BLAS=/tmp/build/libfblas.a && \
     ln -s /usr/bin/python3 /use/bin/python && \
     python -m pip --no-cache-dir install pip -U && \
     python -m pip --no-cache-dir install numpy && \
