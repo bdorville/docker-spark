@@ -1,10 +1,10 @@
-FROM openjdk:jdk-alpine
+FROM openjdk:8-jdk-alpine
 
 ENV HADOOP_VERSION 2.7.3
 ENV HADOOP_HOME /usr/hadoop-$HADOOP_VERSION
 ENV HADOOP_CONF_DIR $HADOOP_HOME/etc/hadoop
 
-ENV SPARK_VERSION 2.2.0
+ENV SPARK_VERSION 2.3.2
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/spark-$SPARK_VERSION
 
@@ -26,7 +26,7 @@ RUN apk update && apk upgrade && \
 #    rm hadoop.tar.gz && \
 #    rm -rf $HADOOP_HOME/share/doc && \
 #    chown -R root:root $HADOOP_HOME && \
-    curl "http://d3kbcqa49mib13.cloudfront.net/${SPARK_PACKAGE}.tgz" -o spark.tgz && \
+    curl -L "http://mirror.easyname.ch/apache/spark/spark-${SPARK_VERSION}/${SPARK_PACKAGE}.tgz" -o spark.tgz && \
     tar -zxf spark.tgz -C /usr/ && \
     rm spark.tgz && \
     mv /usr/$SPARK_PACKAGE $SPARK_HOME && \
