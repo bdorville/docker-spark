@@ -42,6 +42,7 @@ worker:
     #SPARK_PUBLIC_DNS: 192.168.99.100
   links:
     - master
+    - zeppelin
   expose:
     - 7012
     - 7013
@@ -68,4 +69,6 @@ zeppelin:
     - 8000:8000
   volumes:
     - ./executables:/usr/executables
+    - ./data:/tmp/data
+    - ./notebooks:/usr/zeppelin-0.8.0/notebook
 

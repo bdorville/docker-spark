@@ -2,3 +2,4 @@ data/
 executables/
 derby.log
 metastore_db/
+notebooks/
