@@ -70,5 +70,5 @@ zeppelin:
   volumes:
     - ./executables:/usr/executables
     - ./data:/tmp/data
-    - ./notebooks:/usr/zeppelin-0.8.0/notebook
+    - ./notebooks:/usr/zeppelin-0.8.1/notebook
 
