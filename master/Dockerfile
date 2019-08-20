@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-alpine
+FROM adoptopenjdk:8-jdk-hotspot-bionic
 
 ENV HADOOP_VERSION 2.7.3
 ENV HADOOP_HOME /usr/hadoop-$HADOOP_VERSION
@@ -8,19 +8,17 @@ ENV SPARK_VERSION 2.4.3
 ENV SPARK_PACKAGE spark-${SPARK_VERSION}-bin-hadoop2.7
 ENV SPARK_HOME /usr/spark-$SPARK_VERSION
 
+ENV CONDA_HOME /usr/conda
 
-RUN apk update && apk upgrade && \
-    apk add curl bash openssl unzip tar libpng freetype-dev gcc git python3 libgfortran libstdc++ lapack openblas ca-certificates && \
-    apk add --virtual=build_dependencies gfortran g++ make python3-dev lapack-dev && \
-    ln -s /usr/include/locale.h /usr/include/xlocale.h && \
-    ln -s /usr/bin/python3 /usr/bin/python && \
-    python -m pip --no-cache-dir install pip -U && \
-    python -m pip --no-cache-dir install numpy && \
-    python -m pip --no-cache-dir install pandas && \
-    python -m pip --no-cache-dir install scipy && \
-    python -m pip --no-cache-dir install matplotlib && \
-    apk del --purge -r build_dependencies && rm -rf /tmp/build && \
-    rm -rf /var/cache/apk/* && \
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    apt-get update && apt-get -y upgrade && \
+    apt-get --assume-yes install curl wget bash openssl unzip tar r-base && \
+    apt-get clean && \
+    wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda.sh && \
+    bash ~/miniconda.sh -b -p $CONDA_HOME && \
+    ln -s /usr/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /usr/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc && \
 #    curl "http://archive.apache.org/dist/hadoop/common/hadoop-$HADOOP_VERSION/hadoop-$HADOOP_VERSION.tar.gz" -o hadoop.tar.gz && \
 #    tar -zxf hadoop.tar.gz -C /usr/ && \
 #    rm hadoop.tar.gz && \

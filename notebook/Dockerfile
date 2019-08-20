@@ -1,11 +1,12 @@
-FROM bdorville/spark:2.4.3_2.7.3
+FROM bdorville/spark:2.4.3_2.7.3-bionic
 
 ENV ZEPPELIN_VERSION 0.8.1
 ENV ZEPPELIN_PACKAGE zeppelin-${ZEPPELIN_VERSION}-bin-all
 ENV ZEPPELIN_HOME /usr/zeppelin-${ZEPPELIN_VERSION}
 
-RUN apk update && apk upgrade && apk add curl bash openssl unzip tar && \
-    rm -rf /var/cache/apk/* && \
+ENV PATH="/usr/conda/bin:${PATH}"
+
+RUN apt-get update && apt-get -y upgrade && apt-get -y install curl bash openssl unzip tar && \
     curl "https://www.apache.org/dist/zeppelin/zeppelin-${ZEPPELIN_VERSION}/${ZEPPELIN_PACKAGE}.tgz" -o zeppelin.tgz && \
     tar -zxf zeppelin.tgz -C /usr/ && \
     rm zeppelin.tgz && \
