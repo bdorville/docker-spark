@@ -1,6 +1,6 @@
-FROM bdorville/spark:2.4.3_2.7.3-bionic
+FROM bdorville/spark:2.4.4_3.2.1-bionic
 
-ENV ZEPPELIN_VERSION 0.8.1
+ENV ZEPPELIN_VERSION 0.8.2
 ENV ZEPPELIN_PACKAGE zeppelin-${ZEPPELIN_VERSION}-bin-all
 ENV ZEPPELIN_HOME /usr/zeppelin-${ZEPPELIN_VERSION}
 
